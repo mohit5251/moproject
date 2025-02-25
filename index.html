@@ -4,146 +4,156 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fixed Video Layout</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        *{
+        * {
             margin: 0;
-            padding: 0 0 0 0;
+            padding: 0;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            box-sizing: border-box;
         }
-        /* For Set Navbar Over Video*/
-        .container{
-            justify-items: center;
+
+        /* ✅ Fix: Remove extra space below video */
+        .container {
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: auto; /* Auto adjusts based on content */
             overflow: hidden;
-            height: 30rem;
         }
-        .container::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
+
+        video {
             width: 100%;
-            height: 10px; /* Adjust height as needed */
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, white 100%);
+            max-height: 80vh; /* ✅ Fix: Video now takes full height of container */
+            object-fit: cover;
         }
-        nav{
+
+        nav {
             position: absolute; 
-            margin-top: 10px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-
-            /* Css Animation */
-            opacity: 0;  /* Initially hidden */
+            opacity: 0;
             animation: fadeIn 1s ease-in forwards;
         }
+
         @keyframes fadeIn {
-            from{
+            from {
                 opacity: 0;
             }
-            to{
+            to {
                 opacity: 1;
             }
         }
-        video{
-            position: absolute;
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
 
-        }
-        /*---------END---------*/
-
-        li {
-            list-style: none;
-            padding: 1rem 1rem 1rem 1rem;
-            margin: 4px 0 4px 0;
-            transition: 0.4s ease-in;
-            border-radius: 2rem;
-        }
         ul {
             display: flex;
             background-color: black;
             color: white;
             border-radius: 2rem;
-            padding: 0 1rem 0 1rem;
-            margin: 0;
+            padding: 0 1.4rem;
             gap: 4rem;
             box-shadow: 0 0 10px 0 black;
         }
-        li:hover{
+
+        li {
+            list-style: none;
+            padding: 1rem;
+            border-radius: 2rem;
+            transition: 0.4s ease-in-out;
+        }
+
+        li:hover {
             opacity: 0.7;
             background-color: white;
             color: black;
-            transition: 0.5s ease-out;
         }
-        a{
+
+        a {
             text-decoration: none;
             color: white;
         }
-      
+
+        .img-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-items: center;
+            padding: 2rem;
+        }
+
+        .card {
+            height: 300px;
+            width: 250px;
+            border: 1px solid black;
+            border-radius: 1rem;
+            margin: 1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            ul {
+                gap: 2rem;
+            }
+            .img-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card:nth-child(n+11) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            ul {
+                gap: 0.7rem;
+            }
+            .img-container {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .card:nth-child(n+6) {
+                display: none;
+            }
+            video{
+               min-height: 40vh;
+               object-fit: inherit;
+            }
+        }
+        @media (max-width: 400px) {
+            ul {
+                gap: 0px;
+            }
+            li{
+                padding: 0.9rem;
+            }
+            .img-container {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .card:nth-child(n+6) {
+                display: none;
+            }
+            video{
+               min-height: 40vh;
+               object-fit: inherit;
+            }
+        }
+
         footer {
             background-color: #333;
             color: white;
             padding: 1rem 0;
             text-align: center;
             font-size: 1rem;
-            position: relative;
-            bottom: 0;
             width: 100%;
             margin-top: 2rem;
         }
-        .card{
-            height: 300px;
-            width: 250px;
-            border: 1px solid black;
-            border-radius: 1rem;
-            margin: 1rem 0 1rem;
-            position: relative;
-        }
-        .img-container{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            justify-items: center;
-        }
 
-        @media (max-width: 900px) {
-            ul{
-                gap:2rem;
-            }
-            .img-container{
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .card:nth-child(n+11){
-                display: none;
-            }
-        }
-        @media (max-width: 600px) {
-            ul{
-                gap:1rem;
-            }
-            .img-container{
-                grid-template-columns: repeat(1, 1fr);
-            }
-            .card:nth-child(n+6){
-                display: none;
-            }
-        }
-        @media (max-width: 400px) {
-            ul{
-                gap:0.5rem;
-            }
-            
-        }
-        iframe{
-            position: sticky;
-            left: 10%;
-            width: 80%;
+        iframe {
+            width: 100%;
             height: 10rem;
             border: none;
-            box-shadow: inset 0 0 10px 0 black;
         }
+
         ::-webkit-scrollbar {
             display: none;
         }
@@ -156,50 +166,43 @@
         </video>
         <nav>
             <ul>
-                <a href=""><li >Home</li></a>
-                <a href=""><li >Contact</li></a>
-                <a href=""><li >Register</li></a>
-                <a href=""><li >Login</li></a>
+                <a href="#"><li>Home</li></a>
+                <a href="#"><li>Contact</li></a>
+                <a href="#"><li>Register</li></a>
+                <a href="#"><li>Login</li></a>
             </ul>
-            
         </nav>
-        
     </div>
-    
 
-    <h1 style="margin-top: 2rem; text-align: center;">Cards</h1>
+    <h1 style="text-align: center; margin-top: 2rem;">Cards</h1>
     
     <div class="img-container"></div>
 
     <script>
-        let url="https://fakestoreapi.com/products";
+        let url = "https://fakestoreapi.com/products";
 
-        const getData = async() =>{
+        const getData = async () => {
             let response = await fetch(url);
             let data = await response.json();
             console.log(data);
             
             data.forEach(val => {
                 let card = `
-                
                     <div class="card">
                         <img src="${val.image}" height="200" width="200" />
                         <div class="info">
                             <p></p>
                             <p></p>
                         </div>
-                    </div>`
-            document.querySelector(".img-container").insertAdjacentHTML("beforeend",card);
-
+                    </div>`;
+                document.querySelector(".img-container").insertAdjacentHTML("beforeend", card);
             });
-        }
+        };
         getData();
-
-       
     </script>
 
     <iframe src="para.html" frameborder="0"></iframe>
-    
+
     <footer>This is footer</footer>
 </body>
 </html>
